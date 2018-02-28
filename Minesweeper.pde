@@ -3,7 +3,8 @@ import de.bezier.guido.*;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 public final static int NUM_ROWS=20;
 public final static int NUM_COLS=20;
-private ArrayList <MSButton> bombs; //ArrayList of just the minesweeper buttons that are mined
+public final static int NUM_BOMBS=10;
+private ArrayList <MSButton> bombs=new ArrayList<MSButton>(); //ArrayList of just the minesweeper buttons that are mined
 
 void setup ()
 {
@@ -15,8 +16,8 @@ void setup ()
     
     //your code to declare and initialize buttons goes here
     buttons=new MSButton[20][20];
-    for(int i=0;i<20;i++){
-      for(int k=0;k<20;k++)
+    for(int i=0;i<NUM_ROWS;i++){
+      for(int k=0;k<NUM_COLS;k++)
         {
           buttons[i][k]=new MSButton(i,k);
         }
@@ -25,12 +26,13 @@ void setup ()
 }
 public void setBombs()
 {
-    ArrayList<MSButton> bombs=new ArrayList<MSButton>();
-    for(int i=0;i<20;i+=(int)Math.random()*5){
-      for(int k=0;k<20;k+=(int)Math.random()*5){
-        if(bombs.contains(i)!=true){
-        bombs.add(i, new MSButton(i,k));
-      }
+  while(bombs.size()<NUM_BOMBS)
+  {
+    int r=(int)(Math.random()*(NUM_ROWS-1));
+    int c=(int)(Math.random()*(NUM_COLS-1));
+    if(!bombs.contains(buttons[r][c])){
+      bombs.add(buttons[r][c]);
+      System.out.println(r+","+c);
     }
     }
     
@@ -112,7 +114,9 @@ public class MSButton
     }
     public boolean isValid(int r, int c)
     {
-        //your code here
+        if(r>=0&&r<20&&c>=0&&c<20)
+        return true;
+        else
         return false;
     }
     public int countBombs(int row, int col)
