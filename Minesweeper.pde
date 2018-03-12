@@ -45,16 +45,41 @@ public void draw ()
 }
 public boolean isWon()
 {
-    //your code here
-    return false;
+ for(int r = 0; r < NUM_ROWS; r++)
+   {
+ for(int c = 0; c < NUM_COLS; c++)
+   {
+    if(!buttons[r][c].isClicked() == true && !bombs.contains(buttons[r][c]))
+     {
+      return false;
+     }
+   }
+  }
+  return true;
 }
 public void displayLosingMessage()
 {
-    //your code here
+  for(int r = 0; r < NUM_ROWS; r++)
+    {
+     for(int c = 0; c < NUM_COLS; c++)
+      {
+       if(!buttons[r][c].isClicked() && bombs.contains(buttons[r][c]))
+         {
+          buttons[r][c].marked = false;
+          buttons[r][c].clicked = true;
+          buttons[0][0].setLabel("L");
+          buttons[0][1].setLabel("o");
+          buttons[0][2].setLabel("s");
+          buttons[0][3].setLabel("e");
+          buttons[0][4].setLabel("r");
+          buttons[0][5].setLabel("!");
+         }
+      }
+ }
 }
 public void displayWinningMessage()
 {
-    //your code here
+  text("Congrats!",200,200);
 }
 
 public class MSButton
@@ -100,26 +125,25 @@ public class MSButton
         else if(bombs.contains(this))
           displayLosingMessage();
         else if(countBombs(r,c)>0)
-          label=numBombs;
+          setLabel("" + countBombs(r,c));
         else{
-                  if(bombs.contains(buttons[row][col+1])&&isValid(row,col+1))
-        numBombs++;
-        if(bombs.contains(buttons[row+1][col+1])&&isValid(row+1,col+1))
-        numBombs++;
-        if(bombs.contains(buttons[row+1][col])&&isValid(row+1,col))
-        numBombs++;
-        if(bombs.contains(buttons[row][col-1])&&isValid(row,col-1))
-        numBombs++;
-        if(bombs.contains(buttons[row-1][col-1])&&isValid(row-1,col-1))
-        numBombs++;
-        if(bombs.contains(buttons[row-1][col])&&isValid(row-1,col))
-        numBombs++;
-        if(bombs.contains(buttons[row+1][col-1])&&isValid(row+1,col-1))
-        numBombs++;
-        if(bombs.contains(buttons[row-1][col+1])&&isValid(row-1,col+1))
-        numBombs++;
-          
-        
+            if(isValid(r,c-1) && buttons[r][c-1].clicked == false)
+                buttons[r][c-1].mousePressed();
+            if(isValid(r,c+1) && buttons[r][c+1].clicked == false)
+                buttons[r][c+1].mousePressed();
+            if(isValid(r-1,c) && buttons[r-1][c].clicked == false)
+                buttons[r-1][c].mousePressed();  
+            if(isValid(r+1,c) && buttons[r+1][c].clicked == false)
+                buttons[r+1][c].mousePressed();
+            if(isValid(r+1,c+1) && buttons[r+1][c+1].clicked == false)
+                buttons[r+1][c+1].mousePressed();
+            if(isValid(r+1,c-1) && buttons[r+1][c-1].clicked == false)
+                buttons[r+1][c-1].mousePressed();
+            if(isValid(r-1,c-1) && buttons[r-1][c-1].clicked == false)
+                buttons[r-1][c-1].mousePressed();    
+            if(isValid(r-1,c+1) && buttons[r-1][c+1].clicked == false)
+                buttons[r-1][c+1].mousePressed();
+        }
     }
 
     public void draw () 
