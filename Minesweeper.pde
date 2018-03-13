@@ -3,7 +3,7 @@ import de.bezier.guido.*;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 public final static int NUM_ROWS=20;
 public final static int NUM_COLS=20;
-public final static int NUM_BOMBS=10;
+public final static int NUM_BOMBS=40;
 private ArrayList <MSButton> bombs=new ArrayList<MSButton>(); //ArrayList of just the minesweeper buttons that are mined
 
 void setup ()
@@ -63,16 +63,16 @@ public void displayLosingMessage()
     {
      for(int c = 0; c < NUM_COLS; c++)
       {
-       if(!buttons[r][c].isClicked() && bombs.contains(buttons[r][c]))
+       if(buttons[r][c].isClicked() && bombs.contains(buttons[r][c]))
          {
           buttons[r][c].marked = false;
           buttons[r][c].clicked = true;
-          buttons[0][0].setLabel("L");
-          buttons[0][1].setLabel("o");
-          buttons[0][2].setLabel("s");
-          buttons[0][3].setLabel("e");
-          buttons[0][4].setLabel("r");
-          buttons[0][5].setLabel("!");
+          buttons[11][7].setLabel("L");
+          buttons[11][8].setLabel("o");
+          buttons[11][9].setLabel("s");
+          buttons[11][10].setLabel("e");
+          buttons[11][11].setLabel("r");
+          buttons[11][12].setLabel("!");
          }
       }
  }
